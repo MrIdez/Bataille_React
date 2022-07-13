@@ -124,7 +124,7 @@ class PaquetDeCarte{
 	 */
 	RamasserC(p:Carte[]) {
 		const x = Math.floor(Math.random() * 2)
-		if (x == 1) {
+		if (x === 1) {
 			p.reverse()
 		}
 		for (const elem of p) {
@@ -159,7 +159,6 @@ class JeuDeCarte32C extends PaquetDeCarte{
 	 */
 	constructor(){
 		const Jeu = []
-		const nombre = [7,8,9,10,11,12,13,14]
 		for (const coul of ['Tréfle','Pique','Carreaux','Coeur']) {
 			const LFig=['Joker','Un','Deux','Trois','Quatre','Cinq','Six','Sept','Huit','Neuf','Dix','Valet','Dame','Roi','As']
 			for (let k = 7 ; k<=14 ; k++){
@@ -242,7 +241,7 @@ class Joueur {
 	*/
 	constructor(NomJoueur?: string) {
 		this.NomJ = NomJoueur
-		this.pioche = new PaquetDeCarte
+		this.pioche = new PaquetDeCarte()
 		this.nb_cartes = 0
 	}
 	/**
@@ -288,16 +287,16 @@ class Joueur {
 		for (const c of this.pioche.GetCarte) {
 			const valC = c.Valeur
 			if (valC > 10) {
-				if (valC == 11 ) {
+				if (valC === 11 ) {
 					Data.Valet += 1
 				}
-				if (valC == 12 ) {
+				if (valC === 12 ) {
 					Data.Dame += 1
 				}
-				if (valC == 13 ) {
+				if (valC === 13 ) {
 					Data.Roi += 1
 				}
-				if (valC == 14 ) {
+				if (valC === 14 ) {
 					Data.As +=1
 				}
 			}
@@ -319,7 +318,7 @@ class Joueur {
 	 */
 	Ramasser(p:Carte[]) {
 		const x = Math.floor(Math.random() * 2)
-		if (x==1) {
+		if (x===1) {
 			p.reverse()
 			for (const elem of p) {
 				this.AjouterCarte(elem)
@@ -362,9 +361,4 @@ class JoueurPresident extends Joueur {
 	}
 }
 
-
-const Export = {
-	JeuDeCarte32C,JeuDeCarte56C,JeuDeCartePresident,JeuDeCarteUno,PaquetDeCarte,Joueur,JoueurPresident,Carte
-}
-
-export default Export
+export default Carte

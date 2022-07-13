@@ -1,8 +1,9 @@
-﻿import React from 'react';
+import React from 'react';
 import '../Styles/App.css';
+import Carte from './Carte';
 
 function App() {
-    return <button> Test me </button>
+    return <Carte></Carte>
 }
 
 
