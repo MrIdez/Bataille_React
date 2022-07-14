@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+import {Container,Button} from "react-bootstrap";
 
 
 export default function Intro() {
@@ -24,7 +24,8 @@ export default function Intro() {
             <figcaption className="blockquote-footer text-end">
                 "Bataille (jeu)." <cite title="Source Title">Wikipédia, l'encyclopédie libre,</cite>
             </figcaption>
-
+            <Button variant="outline-dark"> Test Btn</Button>
         </Container>
+        
     )
 }
