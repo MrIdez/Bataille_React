@@ -1,5 +1,3 @@
-
-
-export default function PaquetDeCarteJ(){
-    return null
+export default function PaquetDeCarteJ() {
+	return null
 }
