@@ -1,35 +1,46 @@
-import { Button, Container, Form, InputGroup } from "react-bootstrap"
+import { useState } from "react"
+import { Button, Container, CloseButton } from "react-bootstrap"
+import { CSSTransition } from "react-transition-group"
 
 export default function StartMenu() {
-	return <InputNom></InputNom>
+	let [test, upTest] = useState(false)
+	return test ? (
+		<>
+			<div className="text-center">
+				<CloseButton onClick={() => upTest(false)}></CloseButton>
+			</div>
+			<br></br>
+			<InputNom></InputNom>
+		</>
+	) : (
+		<div className="text-center">
+			<Button variant="outline-dark" onClick={() => upTest(true)}>
+				{" "}
+				Commencez !
+			</Button>
+		</div>
+	)
 }
 
 function InputNom() {
 	return (
 		<Container>
-			<InputGroup className="mb-3" hasValidation>
-				<Button variant="outline-dark" id="button-aleat1">
-					Nom Aléatoire
-				</Button>
-				<Form.Control
+			<div className="input-group">
+				<Button variant="outline-dark">Nom aléatoire</Button>
+				<input
+					placeholder="Entre ton nom j1"
 					type="text"
-					placeholder="Entre Ton nom J1"
-					aria-label="Name's input with aleat name button"
-					aria-describedby="Name's input"
+					aria-label="First name"
+					className="form-control"
 				/>
-				<Form.Control
+				<input
+					placeholder="Entre ton nom j2"
 					type="text"
-					placeholder="Entre Ton nom J2"
-					aria-label="Name's input with aleat name button"
-					aria-describedby="Name's input"
+					aria-label="Last name"
+					className="form-control"
 				/>
-				<Button variant="outline-dark" id="button-aleat2">
-					Nom Aléatoire
-				</Button>
-				<Form.Control.Feedback type="invalid">
-					Please choose a username.
-				</Form.Control.Feedback>
-			</InputGroup>
+				<Button variant="outline-dark">Nom aléatoire</Button>
+			</div>
 		</Container>
 	)
 }

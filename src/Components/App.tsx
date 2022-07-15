@@ -1,5 +1,5 @@
 import React from "react"
-import "../Styles/App.css"
+
 //import Carte from './Carte';
 import Intro from "./Introduction"
 import NavigationBar from "./navbar"
