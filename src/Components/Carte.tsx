@@ -1,9 +1,11 @@
 import "../Styles/Carte.css"
 import AsPique from "../Assets/AsPique.png"
-//import ;
+import { JeuDeCarte32C } from "../Class"
 
-function Carte() {
+const JeuDeCarte = new JeuDeCarte32C()
+
+function CarteComp() {
 	return <img alt="Une Carte" src={AsPique} className="CarteImg"></img>
 }
 
-export default Carte
+export default CarteComp

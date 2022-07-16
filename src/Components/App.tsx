@@ -1,6 +1,4 @@
 import React, { useState } from "react"
-
-import Carte from "./Carte"
 import Intro from "./Introduction"
 import NavigationBar from "./navbar"
 import StartMenu from "./StartMenu"
@@ -27,9 +25,7 @@ function App() {
 					></StartMenu>
 				</>
 			) : (
-				<>
-					<Carte></Carte>
-				</>
+				<></>
 			)}
 		</>
 	)
