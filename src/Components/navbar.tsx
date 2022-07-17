@@ -1,16 +1,21 @@
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap"
+import { Link } from "react-router-dom"
 
 export default function NavigationBar() {
 	return (
 		<Navbar bg="light" expand="lg">
 			<Container fluid>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Brand href="#home">Navigation</Navbar.Brand>
+				<Navbar.Brand>Navigation</Navbar.Brand>
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
-						<Nav.Link href="#home">Acceuil</Nav.Link>
+						<Link to="/" className="nav-link">
+							Acceuil
+						</Link>
 						<Nav.Link href="#features">Comment ça marche</Nav.Link>
-						<Nav.Link href="#pricing">A propos</Nav.Link>
+						<Link to="/about" className="nav-link">
+							A propos
+						</Link>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
