@@ -2,7 +2,7 @@ import { Container, Button } from "react-bootstrap"
 
 export default function Intro() {
 	return (
-		<Container className="mx-auto">
+		<Container className="mx-auto" id="Introduction">
 			<Container>
 				<br></br>
 				<br></br>

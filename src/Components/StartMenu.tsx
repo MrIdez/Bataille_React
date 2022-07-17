@@ -1,18 +1,31 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Button, Container, CloseButton } from "react-bootstrap"
+import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider"
 
-export default function StartMenu({ setGame, setNom }: Props) {
+interface PropsSM {
+	settersArrayProps: (
+		| React.Dispatch<React.SetStateAction<boolean>>
+		| ((n1: string, n2: string) => void)
+	)[]
+}
+
+type setNom = (n1: string, n2: string) => void
+type setGame = React.Dispatch<React.SetStateAction<boolean>>
+
+export default function StartMenu({ settersArrayProps }: PropsSM) {
 	let [start, setStart] = useState(false)
 	return start ? (
-		<>
+		<div id="InputNomComponent">
 			<div className="text-center">
 				<CloseButton onClick={() => setStart(false)}></CloseButton>
 			</div>
 			<br></br>
-			<InputNom setGame={setGame} setNom={setNom}></InputNom>
-		</>
+			<OnlyInputComponent
+				settersArrayProps={settersArrayProps}
+			></OnlyInputComponent>
+		</div>
 	) : (
-		<div className="text-center">
+		<div className="text-center" id="StartBtn">
 			<Button variant="outline-dark" onClick={() => setStart(true)}>
 				Commencez !
 			</Button>
@@ -20,21 +33,27 @@ export default function StartMenu({ setGame, setNom }: Props) {
 	)
 }
 
-interface Props {
-	setGame: Function
-	setNom: (n1: string, n2: string) => void
-}
-
-function InputNom({ setGame, setNom }: Props) {
-	let [IsFullJ2, setIsFullJ2] = useState(false)
-	let [IsFullJ1, setIsFullJ1] = useState(false)
-	let text = IsFullJ2 && IsFullJ1
+function OnlyInputComponent({ settersArrayProps }: PropsSM) {
+	let [IsFullJ, setIsFullJ] = useState(false)
 	let Input1 = React.createRef<HTMLInputElement>()
 	let Input2 = React.createRef<HTMLInputElement>()
-	function RenvoieN() {
+	const setNom = settersArrayProps[0] as setNom
+	const setGame = settersArrayProps[1] as setGame
+	function RenvoieNom() {
 		if (Input1.current && Input2.current) {
 			setNom(Input1.current.value, Input2.current.value)
 		}
+	}
+
+	function isInputFull() {
+		if (Input1.current && Input2.current) {
+			return Input1.current.value != "" && Input2.current.value != ""
+		} else {
+			return false
+		}
+	}
+	function checkInputValue() {
+		isInputFull() ? setIsFullJ(true) : setIsFullJ(false)
 	}
 	return (
 		<Container>
@@ -42,11 +61,7 @@ function InputNom({ setGame, setNom }: Props) {
 				<Button variant="outline-dark">Nom aléatoire</Button>
 				<input
 					onChange={() => {
-						if (Input1.current) {
-							Input1.current.value != ""
-								? setIsFullJ1(true)
-								: setIsFullJ1(false)
-						}
+						checkInputValue()
 					}}
 					ref={Input1}
 					placeholder="Entre ton nom j1"
@@ -56,11 +71,7 @@ function InputNom({ setGame, setNom }: Props) {
 				/>
 				<input
 					onChange={() => {
-						if (Input2.current) {
-							Input2.current.value != ""
-								? setIsFullJ2(true)
-								: setIsFullJ2(false)
-						}
+						checkInputValue()
 					}}
 					ref={Input2}
 					placeholder="Entre ton nom j2"
@@ -70,14 +81,14 @@ function InputNom({ setGame, setNom }: Props) {
 				/>
 				<Button variant="outline-dark">Nom aléatoire</Button>
 			</div>
-			{text && (
+			{IsFullJ && (
 				<div className="text-center">
 					<br></br>
 					<Button
 						variant="outline-dark"
 						size="lg"
 						onClick={() => {
-							RenvoieN()
+							RenvoieNom()
 							setGame(true)
 						}}
 					>
