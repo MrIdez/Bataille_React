@@ -25,13 +25,18 @@ function PagePrincipale() {
 		SetNomJ1(n1)
 		SetNomJ2(n2)
 	}
-	const settersArray = [SetNomJ, setGameStarted]
+	function HandlClickSartGameBtn(name1: string, name2: string) {
+		SetNomJ(name1, name2)
+		setGameStarted(true)
+	}
 	return (
 		<div id="app">
 			{!GameStarted ? (
 				<div id="gameNotStarted">
 					<Intro />
-					<StartMenu settersArrayProps={settersArray} />
+					<StartMenu
+						HandlClickSartGameBtnProps={HandlClickSartGameBtn}
+					/>
 				</div>
 			) : (
 				<MenuJeu Nomj1={nomJ1} Nomj2={nomJ2}></MenuJeu>

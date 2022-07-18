@@ -3,16 +3,10 @@ import { Button, Container, CloseButton } from "react-bootstrap"
 import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider"
 
 interface PropsSM {
-	settersArrayProps: (
-		| React.Dispatch<React.SetStateAction<boolean>>
-		| ((n1: string, n2: string) => void)
-	)[]
+	HandlClickSartGameBtnProps: (name1: string, name2: string) => void
 }
 
-type setNom = (n1: string, n2: string) => void
-type setGame = React.Dispatch<React.SetStateAction<boolean>>
-
-export default function StartMenu({ settersArrayProps }: PropsSM) {
+export default function StartMenu({ HandlClickSartGameBtnProps }: PropsSM) {
 	let [start, setStart] = useState(false)
 	return start ? (
 		<div id="InputNomComponent">
@@ -21,7 +15,7 @@ export default function StartMenu({ settersArrayProps }: PropsSM) {
 			</div>
 			<br></br>
 			<OnlyInputComponent
-				settersArrayProps={settersArrayProps}
+				HandlClickSartGameBtnProps={HandlClickSartGameBtnProps}
 			></OnlyInputComponent>
 		</div>
 	) : (
@@ -33,15 +27,16 @@ export default function StartMenu({ settersArrayProps }: PropsSM) {
 	)
 }
 
-function OnlyInputComponent({ settersArrayProps }: PropsSM) {
+function OnlyInputComponent({ HandlClickSartGameBtnProps }: PropsSM) {
 	let [IsFullJ, setIsFullJ] = useState(false)
 	let Input1 = React.createRef<HTMLInputElement>()
 	let Input2 = React.createRef<HTMLInputElement>()
-	const setNom = settersArrayProps[0] as setNom
-	const setGame = settersArrayProps[1] as setGame
-	function RenvoieNom() {
+	function HandlClickSartGameBtnlocal() {
 		if (Input1.current && Input2.current) {
-			setNom(Input1.current.value, Input2.current.value)
+			HandlClickSartGameBtnProps(
+				Input1.current.value,
+				Input2.current.value
+			)
 		}
 	}
 
@@ -88,8 +83,7 @@ function OnlyInputComponent({ settersArrayProps }: PropsSM) {
 						variant="outline-dark"
 						size="lg"
 						onClick={() => {
-							RenvoieNom()
-							setGame(true)
+							HandlClickSartGameBtnlocal()
 						}}
 					>
 						C'est parti
