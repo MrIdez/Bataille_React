@@ -1,10 +1,7 @@
 import React, { useState } from "react"
-import { Container, ThemeProvider } from "react-bootstrap"
-import PaquetComp from "./PaquetComponent"
 import Intro from "./Introduction"
 import NavigationBar from "./navbar"
 import StartMenu from "./StartMenu"
-import { JeuDeCarte32C } from "../Class"
 import { Route, Routes } from "react-router-dom"
 import MenuJeu from "./MenuJeu"
 
