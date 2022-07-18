@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react"
 import { Button, Container, CloseButton } from "react-bootstrap"
-import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider"
 
 interface PropsSM {
 	HandlClickStartGame: (name1: string, name2: string) => void

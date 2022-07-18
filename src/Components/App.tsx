@@ -1,46 +1,35 @@
-import React, { useState } from "react"
+import React from "react"
 import Intro from "./Introduction"
-import NavigationBar from "./navbar"
 import StartMenu from "./StartMenu"
-import { Route, Routes } from "react-router-dom"
-import MenuJeu from "./MenuJeu"
+import {Route, Routes, useNavigate } from "react-router-dom"
+import PageJeu from "./PageJeu"
+
 
 function App() {
 	return (
 		<>
-			<NavigationBar></NavigationBar>
 			<Routes>
 				<Route path="/" element={<PagePrincipale />} />
-				<Route path="/about" element={<p>qsfqsf</p>} />
+				<Route path="/about" element={<p>about</p>} />
+				<Route path='/game/:NomJoueur1/:NomJoueur2' element={<PageJeu/>}/>
 			</Routes>
 		</>
 	)
 }
 
 function PagePrincipale() {
-	let [GameStarted, setGameStarted] = useState(false)
-	let [nomJ1, SetNomJ1] = useState("")
-	let [nomJ2, SetNomJ2] = useState("")
-	function SetNomJ(n1: string, n2: string) {
-		SetNomJ1(n1)
-		SetNomJ2(n2)
-	}
+	const navigateToGame = useNavigate()
 	function HandlClickSartGameBtn(name1: string, name2: string) {
-		SetNomJ(name1, name2)
-		setGameStarted(true)
+		navigateToGame(`/game/${name1}/${name2}`)
 	}
 	return (
 		<div id="app">
-			{!GameStarted ? (
 				<div id="gameNotStarted">
 					<Intro />
 					<StartMenu
-						HandlClickSartGameBtnProps={HandlClickSartGameBtn}
+						HandlClickStartGame={HandlClickSartGameBtn}
 					/>
 				</div>
-			) : (
-				<MenuJeu Nomj1={nomJ1} Nomj2={nomJ2}></MenuJeu>
-			)}
 		</div>
 	)
 }
