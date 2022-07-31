@@ -1,10 +1,9 @@
-import Container from "react-bootstrap/Container"
-import Row from "react-bootstrap/Row"
-import Col from "react-bootstrap/Col"
-import { useParams } from "react-router-dom"
-import { Carte, JeuDeCarte32C, Joueur } from "../Class"
-import Collapse from "react-bootstrap/Collapse"
-import PaquetComp from "./PaquetComponent"
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import { useParams } from 'react-router-dom'
+import { Carte, JeuDeCarte32C, Joueur } from '../Class'
+import PaquetComp from './PaquetComponent'
 
 interface CarteProps {
 	Carte: Carte
@@ -27,8 +26,8 @@ export default function PageJeu() {
 	if (NomJoueur1 === undefined || NomJoueur2 === undefined) {
 		return (
 			<script>
-				{" "}
-				alert("Impossible de recuperer le nom d'un des joueur");{" "}
+				{' '}
+				alert("Impossible de récupérer le nom d'un des joueur");{' '}
 			</script>
 		)
 	} else {
@@ -39,8 +38,8 @@ export default function PageJeu() {
 					<br />
 					<br />
 					<h1 className="display-4 text-center">
-						{NomJoueur1.toLocaleUpperCase()} versus{" "}
-						{NomJoueur2.toLocaleUpperCase()}{" "}
+						{NomJoueur1.toLocaleUpperCase()} versus{' '}
+						{NomJoueur2.toLocaleUpperCase()}{' '}
 					</h1>
 				</Container>
 				<ComponentPartieBataille joueurArray={[joueur1, joueur2]} />
@@ -60,8 +59,8 @@ function initJeu(nj1: string, nj2: string) {
 }
 
 function partieBat([joueur1, joueur2]: Joueur[]) {
-	/** 
-	 * TODO : La partie de bataille 
+	/**
+	 * TODO : La partie de bataille
 	 * let nbcoup = 0;
     while (JB.GetNbCartes != 0 && JA.GetNbCartes != 0) {
         const CA = JA.TirerCarte();
@@ -84,7 +83,7 @@ function partieBat([joueur1, joueur2]: Joueur[]) {
     }
     Resultat['NbCoups'] = nbcoup;
     return Resultat;
- */
+	 */
 }
 
 function ComponentPartieBataille({ joueurArray }: PartieProps) {
@@ -136,7 +135,7 @@ function CoupBatComponents({ carteArray }: CoupBatProps) {
 						<h1> VS </h1>
 					</Col>
 					<Col>
-						{" "}
+						{' '}
 						<CarteComponent Carte={Carte2} />
 					</Col>
 				</Row>

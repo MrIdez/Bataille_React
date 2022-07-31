@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react"
-import { Button, Container, CloseButton, Fade, Collapse } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
+import React, { useState } from 'react'
+import { Button, CloseButton, Collapse, Container, Fade } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
 interface PropsInputPlayer {
 	numj: string
@@ -94,22 +94,22 @@ class InputsPLayer extends React.Component<inputProps, inputState> {
 	isInputFull() {
 		if (this.inputRef1.current && this.inputRef2.current) {
 			return (
-				this.inputRef1.current.value != "" &&
-				this.inputRef2.current.value != ""
+				this.inputRef1.current.value != '' &&
+				this.inputRef2.current.value != ''
 			)
 		} else {
 			return false
 		}
 	}
 	checkInputValue() {
-		if (this.isInputFull() === true) {
-			if (this.state.IsFullJ === false) {
+		if (this.isInputFull()) {
+			if (!this.state.IsFullJ) {
 				this.setState(() => {
 					return { IsFullJ: true }
 				})
 			}
 		} else {
-			if (this.state.IsFullJ === true) {
+			if (this.state.IsFullJ) {
 				this.setState(() => {
 					return { IsFullJ: false }
 				})
@@ -120,18 +120,18 @@ class InputsPLayer extends React.Component<inputProps, inputState> {
 	handleBtnAleat(inputRef: React.RefObject<HTMLInputElement>) {
 		const input = inputRef.current
 		const Nom = [
-			"Agnès Téziste",
-			"Kelly Diossi",
-			"Maggy Tarestcassé",
-			"Alex Trémité",
-			"Annie Versaire",
-			"Maud Erateur",
-			"Alban Bou",
-			"Alex Cité",
-			"Luc Ratif",
-			"Alain Proviste",
-			"Léna Zis",
-			"Line Evitable",
+			'Agnès Téziste',
+			'Kelly Diossi',
+			'Maggy Tarestcassé',
+			'Alex Trémité',
+			'Annie Versaire',
+			'Maud Erateur',
+			'Alban Bou',
+			'Alex Cité',
+			'Luc Ratif',
+			'Alain Proviste',
+			'Léna Zis',
+			'Line Evitable',
 		]
 		const i = Math.floor(Math.random() * Nom.length)
 		if (input) {
