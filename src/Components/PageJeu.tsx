@@ -4,9 +4,22 @@ import Col from "react-bootstrap/Col"
 import { useParams } from "react-router-dom"
 import { Carte, JeuDeCarte32C, Joueur } from "../Class"
 import Collapse from "react-bootstrap/Collapse"
+import PaquetComp from "./PaquetComponent"
 
 interface CarteProps {
 	Carte: Carte
+}
+
+interface JoueurProps {
+	Joueur: Joueur
+}
+
+interface PartieProps {
+	joueurArray: [Joueur, Joueur]
+}
+
+interface CoupBatProps {
+	carteArray: [Carte, Carte]
 }
 
 export default function PageJeu() {
@@ -30,7 +43,7 @@ export default function PageJeu() {
 						{NomJoueur2.toLocaleUpperCase()}{" "}
 					</h1>
 				</Container>
-				<ComponentPartieBataille />
+				<ComponentPartieBataille joueurArray={[joueur1, joueur2]} />
 			</div>
 		)
 	}
@@ -74,18 +87,23 @@ function partieBat([joueur1, joueur2]: Joueur[]) {
  */
 }
 
-function ComponentPartieBataille() {
+function ComponentPartieBataille({ joueurArray }: PartieProps) {
+	let [joueur1, joueur2] = joueurArray
+	const CA = joueur1.TirerCarte()
+	const CB = joueur2.TirerCarte()
 	return (
 		<Container fluid>
 			<br />
 			<br />
 			<Row>
 				<Col>
-					<JoueurComponent />
+					<JoueurComponent Joueur={joueur1} />
 				</Col>
-				<Col md="auto"></Col>
+				<Col md="auto">
+					<CoupBatComponents carteArray={[CA, CB]} />
+				</Col>
 				<Col>
-					<JoueurComponent />
+					<JoueurComponent Joueur={joueur2} />
 				</Col>
 			</Row>
 		</Container>
@@ -96,10 +114,33 @@ function CarteComponent({ Carte }: CarteProps) {
 	return <p>{Carte.AfficheCarte()}</p>
 }
 
-function JoueurComponent() {
-	return <></>
+function JoueurComponent({ Joueur }: JoueurProps) {
+	return (
+		<div id="JoueurComponent">
+			<h1> {Joueur.NomJ}</h1>
+			<PaquetComp paquet={Joueur.GetPioche}></PaquetComp>
+		</div>
+	)
 }
 
-function CoupBatComponents() {
-	return null
+function CoupBatComponents({ carteArray }: CoupBatProps) {
+	let [Carte1, Carte2] = carteArray
+	return (
+		<div id="CoupBatComponents">
+			<Container>
+				<Row>
+					<Col>
+						<CarteComponent Carte={Carte1} />
+					</Col>
+					<Col md="auto">
+						<h1> VS </h1>
+					</Col>
+					<Col>
+						{" "}
+						<CarteComponent Carte={Carte2} />
+					</Col>
+				</Row>
+			</Container>
+		</div>
+	)
 }

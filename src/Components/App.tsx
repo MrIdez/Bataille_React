@@ -1,31 +1,35 @@
-import React from "react"
-import Intro from "./Introduction"
-import StartMenu from "./StartMenu"
-import { Route, Routes, useNavigate } from "react-router-dom"
-import PageJeu from "./PageJeu"
+import React from 'react'
+import Intro from './Introduction'
+import StartMenu from './StartMenu'
+import { Route, Routes } from 'react-router-dom'
+import PageJeu from './PageJeu'
 
 function App() {
-	return (
-		<>
-			<Routes>
-				<Route path="/" element={<PagePrincipale />} />
-				<Route path="/about" element={<p>about</p>} />
-				<Route
-					path="/game/:NomJoueur1/:NomJoueur2"
-					element={<PageJeu />}
-				/>
-			</Routes>
-		</>
-	)
+    return (
+        <>
+            <Routes>
+                <Route path="/" element={<PagePrincipale />} />
+                <Route path="/about" element={<p>about</p>} />
+                <Route
+                    path="/game/:NomJoueur1/:NomJoueur2"
+                    element={<PageJeu />}
+                />
+            </Routes>
+        </>
+    )
+}
+
+function f() {
+    return 0
 }
 
 function PagePrincipale() {
-	return (
-		<div id="app">
-			<Intro />
-			<StartMenu />
-		</div>
-	)
+    return (
+        <div id="app">
+            <Intro />
+            <StartMenu />
+        </div>
+    )
 }
 
 export default App
