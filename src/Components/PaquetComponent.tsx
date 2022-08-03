@@ -4,14 +4,13 @@ import { PaquetDeCarte } from '../Class'
 interface PropsP {
 	paquet: PaquetDeCarte
 }
-
 function createArrayPaquetComp(paquet: PaquetDeCarte) {
 	return paquet.GetCarte.map((value) => {
 		return <p>{value.AfficheCarte()}</p>
 	})
 }
 
-function PaquetComp({ paquet }: PropsP) {
+export default function PaquetComp({ paquet }: PropsP) {
 	const Paquetcomposant = createArrayPaquetComp(paquet)
 	return (
 		<ul>
@@ -22,4 +21,3 @@ function PaquetComp({ paquet }: PropsP) {
 	)
 }
 
-export default PaquetComp
