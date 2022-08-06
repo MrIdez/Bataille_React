@@ -1,7 +1,5 @@
-
-
 /**
- * @file Les Classes requise pour mes jeux de cartes
+ * @file Les Classes requises pour mes jeux de cartes
  * @author MrIdez
  * @version 0.8.5
  */
@@ -14,8 +12,8 @@
  */
 function shuffle<T>(a: T[]) {
 	for (let i = a.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[a[i], a[j]] = [a[j], a[i]]
+		const j = Math.floor(Math.random() * (i + 1))
+		;[a[i], a[j]] = [a[j], a[i]]
 	}
 	return a
 }
@@ -23,18 +21,18 @@ function shuffle<T>(a: T[]) {
 /**
  * @enum La Hiérarchie de president par ordre croissant
  */
-enum hiérarchiePresident {
+enum hierarchiePresident {
 	TDC,
 	ViceTDC,
 	Neutre,
 	VicePresident,
-	President
+	President,
 }
 
-/** 
+/**
  *Decris une carte avec sa valeur, sa figure et sa couleur
  *@author MR Idez
-*/
+ */
 export class Carte {
 	coul: string
 	val: number
@@ -76,7 +74,7 @@ export class PaquetDeCarte {
 	nbcarte: number
 	paquet: Carte[]
 	/**
-	 * Crée un instance de Paquet de Carte
+	 * Crée une instance de Paquet de Carte
 	 * @param {Carte[]} p Un Tableau de Carte, vide par défaut
 	 */
 	constructor(p: Carte[] = []) {
@@ -87,7 +85,7 @@ export class PaquetDeCarte {
 		}
 	}
 	/**
-	 * @return un tableau contenant les cartes du Paquet 
+	 * @return un tableau contenant les cartes du Paquet
 	 * */
 	get GetCarte(): Carte[] {
 		return this.paquet
@@ -109,7 +107,7 @@ export class PaquetDeCarte {
 	}
 	/**
 	 * Distribue un nombre de cartes prédéfini
-	 * @param nbcartes le nombre de carte à distribuer
+	 * @param nbcartes le nombre de cartes à distribuer
 	 * @returns un tableur contenant les cartes distribuées
 	 */
 	Distribuer(nbcartes: number) {
@@ -148,7 +146,7 @@ export class PaquetDeCarte {
 	}
 }
 
-/** 
+/**
  * Décris un Paquet de carte avec toutes les cartes d'un jeu de 32 cartes
  * @classdesc Un Jeu de 32 cartes
  * @extends PaquetDeCarte
@@ -161,7 +159,23 @@ export class JeuDeCarte32C extends PaquetDeCarte {
 	constructor() {
 		const Jeu = []
 		for (const coul of ['Tréfle', 'Pique', 'Carreaux', 'Coeur']) {
-			const LFig = ['Joker', 'Un', 'Deux', 'Trois', 'Quatre', 'Cinq', 'Six', 'Sept', 'Huit', 'Neuf', 'Dix', 'Valet', 'Dame', 'Roi', 'As']
+			const LFig = [
+				'Joker',
+				'Un',
+				'Deux',
+				'Trois',
+				'Quatre',
+				'Cinq',
+				'Six',
+				'Sept',
+				'Huit',
+				'Neuf',
+				'Dix',
+				'Valet',
+				'Dame',
+				'Roi',
+				'As',
+			]
 			for (let k = 7; k <= 14; k++) {
 				const une_carte = new Carte(k, coul, LFig)
 				Jeu.push(une_carte)
@@ -180,7 +194,23 @@ class JeuDeCarte56C extends PaquetDeCarte {
 	constructor() {
 		const Jeu = []
 		for (const coul of ['Tréfle', 'Pique', 'Carreaux', 'Coeur']) {
-			const LFig = ['Joker', 'Un', 'Deux', 'Trois', 'Quatre', 'Cinq', 'Six', 'Sept', 'Huit', 'Neuf', 'Dix', 'Valet', 'Dame', 'Roi', 'As']
+			const LFig = [
+				'Joker',
+				'Un',
+				'Deux',
+				'Trois',
+				'Quatre',
+				'Cinq',
+				'Six',
+				'Sept',
+				'Huit',
+				'Neuf',
+				'Dix',
+				'Valet',
+				'Dame',
+				'Roi',
+				'As',
+			]
 			for (let k = 1; k <= 14; k++) {
 				const une_carte = new Carte(k, coul, LFig)
 				Jeu.push(une_carte)
@@ -199,7 +229,23 @@ class JeuDeCartePresident extends PaquetDeCarte {
 	constructor() {
 		const Jeu = []
 		for (const coul of ['Tréfle', 'Pique', 'Carreaux', 'Coeur']) {
-			const LFig = ['', '', 'Trois', 'Quatre', 'Cinq', 'Six', 'Sept', 'Huit', 'Neuf', 'Dix', 'Valet', 'Dame', 'Roi', 'As', 'Deux']
+			const LFig = [
+				'',
+				'',
+				'Trois',
+				'Quatre',
+				'Cinq',
+				'Six',
+				'Sept',
+				'Huit',
+				'Neuf',
+				'Dix',
+				'Valet',
+				'Dame',
+				'Roi',
+				'As',
+				'Deux',
+			]
 			for (let k = 2; k <= 14; k++) {
 				const une_carte = new Carte(k, coul, LFig)
 				Jeu.push(une_carte)
@@ -218,7 +264,23 @@ class JeuDeCarteUno extends PaquetDeCarte {
 	constructor() {
 		const Jeu = []
 		for (const coul of ['Tréfle', 'Pique', 'Carreaux', 'Coeur']) {
-			const LFig = ['Zéro', 'Un', 'Deux', 'Trois', 'Quatre', 'Cinq', 'Six', 'Sept', 'Huit', 'Neuf', '+2', 'Inversement de sens', 'Passe ton tour', 'Joker', '+4']
+			const LFig = [
+				'Zéro',
+				'Un',
+				'Deux',
+				'Trois',
+				'Quatre',
+				'Cinq',
+				'Six',
+				'Sept',
+				'Huit',
+				'Neuf',
+				'+2',
+				'Inversement de sens',
+				'Passe ton tour',
+				'Joker',
+				'+4',
+			]
 			for (let k = 2; k <= 15; k++) {
 				const une_carte = new Carte(k, coul, LFig)
 				Jeu.push(une_carte)
@@ -229,27 +291,31 @@ class JeuDeCarteUno extends PaquetDeCarte {
 }
 
 /**
- * Décris joueur caractérisé par son nom , sa pioche et son nombre de cartes
+ * Décris joueur caractérisé par son nom, sa pioche et son nombre de cartes
  * @author MrIdez
-*/
+ */
 export class Joueur {
-	NomJ: string | undefined
+	NomJ: string
 	pioche: PaquetDeCarte
 	nb_cartes: number
 	/**
 	 * créer une instance de Joueur
-	 * @param NomJoueur le nom de joueur 
-	*/
+	 * @param NomJoueur le nom de joueur
+	 */
 	constructor(NomJoueur?: string) {
-		this.NomJ = NomJoueur
+		if (NomJoueur) {
+			this.NomJ = NomJoueur
+		} else {
+			this.NomJ = ''
+		}
 		this.pioche = new PaquetDeCarte()
 		this.nb_cartes = 0
 	}
 	/**
 	 * Renvoie le nom du Joueur
-	 * @returns {string | undefined} Le nom du joueur
+	 * @returns {string} Le nom du joueur
 	 */
-	get GetNom(): string | undefined {
+	get GetNom(): string {
 		return this.NomJ
 	}
 	/**
@@ -260,8 +326,8 @@ export class Joueur {
 		return this.pioche
 	}
 	/**
-	 * Renvoie le nombre de cartes du joueurs
-	 * @returns {number} Le nombre de carte
+	 * Renvoie le nombre de cartes des joueurs
+	 * @returns {number} Le nombre de cartes
 	 */
 	get GetNbCartes(): number {
 		return this.nb_cartes
@@ -280,8 +346,8 @@ export class Joueur {
 	}
 
 	/**
-	 * Renvoie un objet data Comprenant le nombre d'As , de Roi , de Dame , de Valet et de petites cartes dans la pioche du joueur
-	 * @returns un objet data Comprenant le nombre d'As , de Roi , de Dame , de Valet et de petites cartes
+	 * Renvoie un objet data Comprenant le nombre d'As, de Roi, de Dame, de Valet et de petites cartes dans la pioche du joueur
+	 * @returns un objet data Comprenant le nombre d'As, de Roi, de Dame, de Valet et de petites cartes
 	 */
 	get DataPioche() {
 		const Data = { As: 0, Roi: 0, Dame: 0, Valet: 0, Point: 0 }
@@ -301,7 +367,8 @@ export class Joueur {
 					Data.As += 1
 				}
 			}
-			Data.Point = this.GetNbCartes - (Data.Valet + Data.Dame + Data.Roi + Data.As)
+			Data.Point =
+				this.GetNbCartes - (Data.Valet + Data.Dame + Data.Roi + Data.As)
 		}
 		return Data
 	}
@@ -324,8 +391,7 @@ export class Joueur {
 			for (const elem of p) {
 				this.AjouterCarte(elem)
 			}
-		}
-		else {
+		} else {
 			for (const elem of p) {
 				this.AjouterCarte(elem)
 			}
@@ -343,23 +409,29 @@ export class Joueur {
 	}
 
 	/**
-	 * Fabrique une chaine de caractere afin d'afficher la data de la la pioche du joueur
-	 * @returns {string} Une chaine de caractére de la data de la pioche du {@link Joueur}
-	 * @see DataPioche data = retour de this.DataPioche
+	 * Fabrique une chaine de character afin d'afficher la data de la pioche du joueur
+	 * @returns {string} Une chaine de caractère de la data de la pioche du {@link Joueur}
+	 * @see DataPioche data = retour de 'this.DataPioche'
 	 */
 	AfficheData(): string {
 		const Data = this.DataPioche
-		return ['As :', Data.As.toString(), 'Rois :', Data.Roi.toString(), 'Dames :', Data.Dame.toString(), 'Valets :', Data.Valet.toString()].join(' ')
+		return [
+			'As :',
+			Data.As.toString(),
+			'Rois :',
+			Data.Roi.toString(),
+			'Dames :',
+			Data.Dame.toString(),
+			'Valets :',
+			Data.Valet.toString(),
+		].join(' ')
 	}
 }
-
-
 
 class JoueurPresident extends Joueur {
-	etat: hiérarchiePresident
+	etat: hierarchiePresident
 	constructor(Nom: string) {
 		super(Nom)
-		this.etat = hiérarchiePresident.Neutre
+		this.etat = hierarchiePresident.Neutre
 	}
 }
-

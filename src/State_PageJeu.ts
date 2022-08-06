@@ -1,53 +1,65 @@
-import { AnyAction, configureStore, createAction } from '@reduxjs/toolkit'
+import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface State {
+export type stateJoueur = {
+	joueurPaquet: Array<string>
+	playingCard: string
+}
+
+export interface State {
 	playing: boolean
 	skip: boolean
-	winner: null | string
+	winner: string
 	speed: number
+	nbcoups: number
+	joueur1: stateJoueur
+	joueur2: stateJoueur
 }
 
 const initialState: State = {
-	playing: true,
+	playing: false,
 	skip: false,
-	winner: null,
+	winner: '',
 	speed: 1,
+	nbcoups: 0,
+	joueur1: { joueurPaquet: [], playingCard: '' },
+	joueur2: { joueurPaquet: [], playingCard: '' },
 }
 
-const playPause = createAction('playPause')
+const stateSlice = createSlice({
+	name: 'stateSlice',
+	initialState: initialState,
+	reducers: {
+		resetSate: (state) => {
+			state = initialState
+		},
+		togglePlayPause: (state) => {
+			state.playing = !state.playing
+		},
+		play: (state) => {
+			state.playing = true
+		},
+		skip: (state) => {
+			state.skip = true
+		},
+		unSkip: (state) => {
+			state.skip = false
+		},
+		changeSpeed: (state, action: PayloadAction<number>) => {
+			state.speed = action.payload
+		},
+		setWinner: (state, action: PayloadAction<string>) => {
+			state.winner = action.payload
+		},
+		incrementCoups: (state, action: PayloadAction<number>) => {
+			state.nbcoups += action.payload
+		},
+		updateJoueur: (state, action: PayloadAction<stateJoueur[]>) => {
+			state.joueur1 = action.payload[0]
+			state.joueur2 = action.payload[1]
+		},
+	},
+})
 
-const skip = createAction('skip')
-
-export function changeSpeed(speed: number): AnyAction {
-	return { type: 'changeSpeed', payload: { speed: speed } }
-}
-
-export function setWinner(winnerName: string): AnyAction {
-	return { type: 'setWinner', payload: { winner: winnerName } }
-}
-
-function reducer(state: State = initialState, action: AnyAction) {
-	if (action.type === 'playPause') {
-		return {
-			...state,
-			playing: !state.playing,
-		}
-	} else if (action.type === 'skip') {
-		return {
-			...state,
-			skip: true,
-		}
-	} else if (action.type === 'changeSpeed' && action.payload) {
-		return {
-			...state,
-			speed: action.payload.speed,
-		}
-	} else if (action.type === 'setWinner' && action.payload) {
-		return {
-			...state,
-			winner: action.payload.winner,
-		}
-	}
-	return state
-}
-export const local_store = configureStore({ reducer: reducer })
+export const actions = stateSlice.actions
+const State_store = configureStore({ reducer: stateSlice.reducer })
+export default State_store

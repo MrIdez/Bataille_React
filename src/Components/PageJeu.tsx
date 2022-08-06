@@ -2,27 +2,25 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { useParams } from 'react-router-dom'
-import { Carte, Joueur } from '../Class'
-import PaquetComp from './PaquetComponent'
-import { initJeu } from '../Bataille'
-import { Provider } from 'react-redux'
-import { local_store } from '../State_PageJeu'
+import { Joueur } from '../Class'
+import { initJeu, partieBat } from '../Bataille'
+import { Provider, useSelector } from 'react-redux'
+import stateStore, { State } from '../State_PageJeu'
 
 // Interface
 interface CarteProps {
-	Carte: Carte
+	Carte: string | null
 }
-
+interface PropsP {
+	type: number
+}
 interface JoueurProps {
 	Joueur: Joueur
+	type: number
 }
 
 interface PartieProps {
 	joueurArray: [Joueur, Joueur]
-}
-
-interface CoupBatProps {
-	carteArray: [Carte, Carte]
 }
 
 export default function PageJeu() {
@@ -38,11 +36,11 @@ export default function PageJeu() {
 		let [joueur1, joueur2] = initJeu(NomJoueur1, NomJoueur2)
 		return (
 			<div id="PageJeu">
-				<Provider store={local_store}>
+				<Provider store={stateStore}>
 					<Container id="NomDesJoueurs">
 						<br />
 						<br />
-						<h1 className="display-4 text-center">
+						<h1 className="display-4 text-center shadow">
 							{NomJoueur1.toLocaleUpperCase()} versus{' '}
 							{NomJoueur2.toLocaleUpperCase()}{' '}
 						</h1>
@@ -56,21 +54,23 @@ export default function PageJeu() {
 
 function ComponentPartieBataille({ joueurArray }: PartieProps) {
 	let [joueur1, joueur2] = joueurArray
-	const CA = joueur1.TirerCarte()
-	const CB = joueur2.TirerCarte()
+	const winner = useSelector<State, string>((state) => state.winner)
+	if (winner.length < 1) {
+		partieBat(joueurArray).then()
+	}
 	return (
 		<Container fluid>
 			<br />
 			<br />
 			<Row>
 				<Col>
-					<JoueurComponent Joueur={joueur1} />
+					<JoueurComponent Joueur={joueur1} type={1} />
 				</Col>
-				<Col md="auto">
-					<CoupBatComponents carteArray={[CA, CB]} />
+				<Col className="d-flex align-items-center justify-content-center">
+					<CoupBatComponents />
 				</Col>
 				<Col>
-					<JoueurComponent Joueur={joueur2} />
+					<JoueurComponent Joueur={joueur2} type={2} />
 				</Col>
 			</Row>
 		</Container>
@@ -78,29 +78,37 @@ function ComponentPartieBataille({ joueurArray }: PartieProps) {
 }
 
 function CarteComponent({ Carte }: CarteProps) {
-	return <p>{Carte.AfficheCarte()}</p>
+	return (
+		<Container fluid className="gx-0">
+			<p className="text-center">{Carte}</p>
+		</Container>
+	)
 }
 
-function JoueurComponent({ Joueur }: JoueurProps) {
+function JoueurComponent({ Joueur, type }: JoueurProps) {
 	return (
-		<div id="JoueurComponent">
+		<div id="JoueurComponent" className="text-center">
 			<h1> {Joueur.NomJ}</h1>
-			<PaquetComp paquet={Joueur.GetPioche}></PaquetComp>
+			<PaquetComp type={type}></PaquetComp>
 		</div>
 	)
 }
 
-function CoupBatComponents({ carteArray }: CoupBatProps) {
-	let [Carte1, Carte2] = carteArray
+function CoupBatComponents() {
+	const carteArray = useSelector<State, string[]>((state) => {
+		return [state.joueur1.playingCard, state.joueur2.playingCard]
+	})
+	const Carte1 = carteArray[0]
+	const Carte2 = carteArray[1]
 	return (
 		<div id="CoupBatComponents">
-			<Container>
-				<Row>
+			<Container fluid>
+				<Row className="shadow">
 					<Col>
 						<CarteComponent Carte={Carte1} />
 					</Col>
-					<Col md="auto">
-						<h1> VS </h1>
+					<Col className="d-flex align-items-center justify-content-center">
+						<h6> VS </h6>
 					</Col>
 					<Col>
 						{' '}
@@ -109,5 +117,45 @@ function CoupBatComponents({ carteArray }: CoupBatProps) {
 				</Row>
 			</Container>
 		</div>
+	)
+}
+
+function findPaquet(type: number) {
+	if (type === 1) {
+		return useSelector<State, string[]>(
+			(state) => state.joueur1.joueurPaquet
+		)
+	} else {
+		return useSelector<State, string[]>(
+			(state) => state.joueur2.joueurPaquet
+		)
+	}
+}
+
+function CollCardList(props: { strings: string[] }) {
+	return (
+		<Col>
+			<Container fluid className=" pt-3">
+				<ul>
+					{props.strings.map((carte, index) => {
+						return <li key={`${carte}-${index}`}>{carte}</li>
+					})}
+				</ul>
+			</Container>
+		</Col>
+	)
+}
+
+function PaquetComp({ type }: PropsP) {
+	const paquet = findPaquet(type)
+	const paquetColl1 = paquet.slice(0, Math.floor(paquet.length / 2))
+	const paquetColl2 = paquet.slice(Math.floor(paquet.length / 2))
+	return (
+		<Container className="shadow">
+			<Row>
+				<CollCardList strings={paquetColl1} />
+				<CollCardList strings={paquetColl2} />
+			</Row>
+		</Container>
 	)
 }
