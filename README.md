@@ -18,6 +18,11 @@ Ce projet a aussi été pour moi l’occasion de me former en autodidacte, et d'
 
 J'aimerais remercier ce qui m'on permis de réaliser ce projet. Tout d'abord [Grafikart](https://grafikart.fr/) qui m'a beaucoup appris sur le TypeScript et le développement Web à travers ses [tuto vidéos](https://www.youtube.com/user/grafikarttv). Enfin je remercie le site [openclassroom](https://openclassrooms.com/) pour ses formations gratuites sur React et Redux.
 
+## Licence 
+
+Ce projet est sous licence MIT voir le fichier [LICENCE](LICENCE) pour plus de détails
+
+
 ## Auteur
 
 - [@MrIdez](https://www.github.com/MrIdez)
